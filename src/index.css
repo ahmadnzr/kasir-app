@@ -1,0 +1,11 @@
+body {
+  font-family: 'Public Sans', sans-serif;
+}
+
+.navbar{
+  background-color: #2266ba;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
