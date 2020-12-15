@@ -9,6 +9,9 @@ body {
   background-color: #2266ba;
   color: white;
 }
+.btn-success{
+  background-color: #2266ba;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
