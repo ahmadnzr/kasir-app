@@ -27,7 +27,7 @@ export default class Home extends Component {
         console.log(error);
       });
 
-      axios
+    axios
       .get(API_URL + "keranjangs")
       .then((res) => {
         const keranjangs = res.data;
@@ -38,17 +38,17 @@ export default class Home extends Component {
       });
   }
 
-  componentDidUpdate(prevState){
-    if(this.state.keranjangs !== prevState.keranjangs){
+  componentDidUpdate(prevState) {
+    if (this.state.keranjangs !== prevState.keranjangs) {
       axios
-      .get(API_URL + "keranjangs")
-      .then((res) => {
-        const keranjangs = res.data;
-        this.setState({ keranjangs });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(API_URL + "keranjangs")
+        .then((res) => {
+          const keranjangs = res.data;
+          this.setState({ keranjangs });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
   changeCategory = (value) => {
@@ -72,7 +72,7 @@ export default class Home extends Component {
     axios
       .get(API_URL + "keranjangs?product.id=" + value.id)
       .then((res) => {
-        if(res.data.length === 0){
+        if (res.data.length === 0) {
           const keranjang = {
             jumlah: 1,
             total_harga: value.harga,
@@ -86,28 +86,28 @@ export default class Home extends Component {
                 text: "Sukses Masuk Kerangjang" + keranjang.product.nama,
                 icon: "success",
                 button: false,
-                timer: 1500
+                timer: 1500,
               });
             })
             .catch((error) => {
               console.log(error);
             });
-        }else{
+        } else {
           const keranjang = {
-            jumlah: res.data[0].jumlah+1,
-            total_harga:res.data[0].total_harga+value.harga,
+            jumlah: res.data[0].jumlah + 1,
+            total_harga: res.data[0].total_harga + value.harga,
             product: value,
           };
 
           axios
-            .put(API_URL + "keranjangs/"+res.data[0].id, keranjang)
+            .put(API_URL + "keranjangs/" + res.data[0].id, keranjang)
             .then((res) => {
               swal({
                 title: "Sukses Masuk Kerangjang",
                 text: "Sukses Masuk Kerangjang" + keranjang.product.nama,
                 icon: "success",
                 button: false,
-                timer: 1500
+                timer: 1500,
               });
             })
             .catch((error) => {
@@ -118,38 +118,37 @@ export default class Home extends Component {
       .catch((error) => {
         console.log(error);
       });
-    
   };
 
   render() {
     const { menus, categoriYangDiPilih, keranjangs } = this.state;
     return (
-        <div className="mt-2">
-          <Container fluid>
-            <Row>
-              <ListCategories
-                changeCategory={this.changeCategory}
-                categoriYangDiPilih={categoriYangDiPilih}
-              />
-              <Col>
-                <h4>
-                  <strong>Daftar Produk</strong>
-                </h4>
-                <hr />
-                <Row>
-                  {menus &&
-                    menus.map((menu) => (
-                      <Menus
-                        key={menu.id}
-                        menu={menu}
-                        masukKerangjang={this.masukKerangjang}
-                      />
-                    ))}
-                </Row>
-              </Col>
-              <Hasil keranjangs = {keranjangs} {...this.props}/>
-            </Row>
-          </Container>
+      <div className="mt-2">
+        <Container fluid>
+          <Row>
+            <ListCategories
+              changeCategory={this.changeCategory}
+              categoriYangDiPilih={categoriYangDiPilih}
+            />
+            <Col>
+              <h4>
+                <strong>Daftar Produk</strong>
+              </h4>
+              <hr />
+              <Row>
+                {menus &&
+                  menus.map((menu) => (
+                    <Menus
+                      key={menu.id}
+                      menu={menu}
+                      masukKerangjang={this.masukKerangjang}
+                    />
+                  ))}
+              </Row>
+            </Col>
+            <Hasil keranjangs={keranjangs} {...this.props} />
+          </Row>
+        </Container>
       </div>
     );
   }

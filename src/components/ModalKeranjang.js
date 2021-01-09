@@ -14,6 +14,8 @@ const ModalKeranjang = ({
   kurang,
   changeHandler,
   handleSubmit,
+  totalHarga,
+  hapusPesanan,
 }) => {
   if (keranjangDetail) {
     return (
@@ -31,30 +33,29 @@ const ModalKeranjang = ({
             <Form.Group controlId="exampleForm.ControlInput1">
               <Form.Label>Total Harga :</Form.Label>
               <p>
-                <strong>
-                  Rp. {numberWithCommas(keranjangDetail.total_harga)}
-                </strong>
+                <strong>Rp. {numberWithCommas(totalHarga)}</strong>
               </p>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlInput1">
               <Form.Label>Jumlah :</Form.Label>
               <br />
+
               <Button
                 variant="primary"
                 size="sm"
                 className="mr-2"
-                onClick={() => tambah()}
+                onClick={() => kurang()}
               >
-                <FontAwesomeIcon icon={faPlus} />
+                <FontAwesomeIcon icon={faMinus} />
               </Button>
               <strong>{jumlah}</strong>
               <Button
                 variant="primary"
                 size="sm"
                 className="ml-2"
-                onClick={() => kurang()}
+                onClick={() => tambah()}
               >
-                <FontAwesomeIcon icon={faMinus} />
+                <FontAwesomeIcon icon={faPlus} />
               </Button>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -68,11 +69,16 @@ const ModalKeranjang = ({
                 onChange={(event) => changeHandler(event)}
               />
             </Form.Group>
-            <Button variant="primary" type="submit">Simpan</Button>
+            <Button variant="primary" type="submit">
+              Simpan
+            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger">
+          <Button
+            variant="danger"
+            onClick={() => hapusPesanan(keranjangDetail.id)}
+          >
             <FontAwesomeIcon icon={faTrash} /> Hapus pesanan
           </Button>
         </Modal.Footer>
